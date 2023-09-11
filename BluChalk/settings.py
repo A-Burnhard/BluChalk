@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,7 +37,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
+    'django.contrib.sites',
+    'rest_auth',
+    'rest_auth.registration',
+    'api.apps.ApiConfig',
+    'users.apps.UsersConfig',
+    'courses.apps.CoursesConfig',
+    'enrollment.apps.EnrollmentConfig',
+    'forums.apps.ForumsConfig',
+    'payments.apps.PaymentsConfig',
+    'quiz.apps.QuizConfig',
+    'assessments.apps.AssessmentsConfig',
+    'ai_engine.apps.AiEngineConfig',
+    'knox',
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,6 +68,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'BluChalk.urls'
+
+AUTH_USER_MODEL = 'users.User'
+
+
 
 TEMPLATES = [
     {
@@ -81,6 +103,8 @@ DATABASES = {
 }
 
 
+
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -98,6 +122,38 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# CORS
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    # Add any other origins where your React app may be hosted
+]
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'knox.auth.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+REST_KNOX = {
+    "USER_SERIALIZER": "api.serializers.UserSerializer",
+    "TOKEN_TTL": timedelta(hours=24),
+}
+
 
 
 # Internationalization
