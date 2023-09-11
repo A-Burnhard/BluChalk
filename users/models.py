@@ -9,7 +9,7 @@ class User(AbstractUser):
         (2, 'instructor'),
         (3, 'student'),
     )
-    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES)
+    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=1)
     username = None
     profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
     email = models.EmailField(('Email address'), unique=True)

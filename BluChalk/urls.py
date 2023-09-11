@@ -10,7 +10,7 @@ urlpatterns = [
    # path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('users/', include('users.urls')),
     path('api/', include('api.urls' )),
-    path('courses/', include('api.urls') ),
+    path('courses/', include('courses.urls') ),
     path('enrollment/', include('enrollment.urls')),
     path('forums/', include('forums.urls')),
     path('payments/', include('payments.urls')),
